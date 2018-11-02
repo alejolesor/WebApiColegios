@@ -1,0 +1,790 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DrogadiccionModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Actividad">
+          <Key>
+            <PropertyRef Name="actividadId" />
+          </Key>
+          <Property Name="actividadId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar(max)" />
+          <Property Name="fechaInicial" Type="datetime" />
+          <Property Name="fechafinal" Type="datetime" />
+          <Property Name="descripcion" Type="varchar(max)" />
+          <Property Name="fundacionId" Type="int" />
+        </EntityType>
+        <EntityType Name="Acudiente">
+          <Key>
+            <PropertyRef Name="acudienteId" />
+          </Key>
+          <Property Name="acudienteId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="usuarioId" Type="int" />
+          <Property Name="direccionTrabajo" Type="varchar(max)" />
+          <Property Name="empresa" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Camino">
+          <Key>
+            <PropertyRef Name="camino" />
+          </Key>
+          <Property Name="camino" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="respuestaId" Type="int" />
+          <Property Name="salidaId" Type="int" />
+        </EntityType>
+        <EntityType Name="Curso">
+          <Key>
+            <PropertyRef Name="cursoId" />
+          </Key>
+          <Property Name="cursoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descripcion" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Estudiante">
+          <Key>
+            <PropertyRef Name="estudianteId" />
+          </Key>
+          <Property Name="estudianteId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="usuarioId" Type="int" />
+          <Property Name="cursoId" Type="int" />
+        </EntityType>
+        <EntityType Name="Fundacion">
+          <Key>
+            <PropertyRef Name="fundacionId" />
+          </Key>
+          <Property Name="fundacionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="usuarioId" Type="int" />
+          <Property Name="identificacion" Type="varchar" MaxLength="25" />
+          <Property Name="nombre" Type="varchar(max)" />
+          <Property Name="direccion" Type="varchar(max)" />
+          <Property Name="telefono" Type="int" />
+        </EntityType>
+        <EntityType Name="Institucion">
+          <Key>
+            <PropertyRef Name="institucionId" />
+          </Key>
+          <Property Name="institucionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="identificacion" Type="varchar" MaxLength="25" />
+          <Property Name="nombre" Type="varchar(max)" />
+          <Property Name="telefono" Type="int" />
+          <Property Name="direccion" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Pregunta">
+          <Key>
+            <PropertyRef Name="preguntaId" />
+          </Key>
+          <Property Name="preguntaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descripcion" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Psicologo">
+          <Key>
+            <PropertyRef Name="psicologoId" />
+          </Key>
+          <Property Name="psicologoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="usuarioId" Type="int" />
+          <Property Name="especialidad" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Respuesta">
+          <Key>
+            <PropertyRef Name="respuestaId" />
+          </Key>
+          <Property Name="respuestaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descripcion" Type="varchar(max)" />
+          <Property Name="preguntaId" Type="int" />
+        </EntityType>
+        <EntityType Name="Respuesta_Estudiante">
+          <Key>
+            <PropertyRef Name="resEstId" />
+          </Key>
+          <Property Name="resEstId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="estudianteId" Type="int" />
+          <Property Name="fecha" Type="datetime" />
+          <Property Name="respuestaId" Type="int" />
+        </EntityType>
+        <EntityType Name="Rol">
+          <Key>
+            <PropertyRef Name="rolId" />
+          </Key>
+          <Property Name="rolId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descripcion" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="usuarioId" />
+          </Key>
+          <Property Name="usuarioId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="identificacion" Type="varchar" MaxLength="25" />
+          <Property Name="tipoDocumento" Type="nchar" MaxLength="3" />
+          <Property Name="nombre" Type="varchar" MaxLength="150" />
+          <Property Name="fechaNacimiento" Type="date" />
+          <Property Name="telefono" Type="int" />
+          <Property Name="celular" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="genero" Type="varchar" MaxLength="1" />
+          <Property Name="direccion" Type="varchar(max)" />
+          <Property Name="email" Type="varchar(max)" />
+          <Property Name="contrasena" Type="varchar" MaxLength="20" />
+          <Property Name="institucionId" Type="int" />
+          <Property Name="estado" Type="bit" />
+          <Property Name="rolId" Type="int" />
+        </EntityType>
+        <Association Name="FK_Actividad_Fundacion">
+          <End Role="Fundacion" Type="Self.Fundacion" Multiplicity="0..1" />
+          <End Role="Actividad" Type="Self.Actividad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fundacion">
+              <PropertyRef Name="fundacionId" />
+            </Principal>
+            <Dependent Role="Actividad">
+              <PropertyRef Name="fundacionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Acudiente_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="Acudiente" Type="Self.Acudiente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="usuarioId" />
+            </Principal>
+            <Dependent Role="Acudiente">
+              <PropertyRef Name="usuarioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Camino_Pregunta">
+          <End Role="Pregunta" Type="Self.Pregunta" Multiplicity="0..1" />
+          <End Role="Camino" Type="Self.Camino" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pregunta">
+              <PropertyRef Name="preguntaId" />
+            </Principal>
+            <Dependent Role="Camino">
+              <PropertyRef Name="salidaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Camino_Respuesta">
+          <End Role="Respuesta" Type="Self.Respuesta" Multiplicity="0..1" />
+          <End Role="Camino" Type="Self.Camino" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Respuesta">
+              <PropertyRef Name="respuestaId" />
+            </Principal>
+            <Dependent Role="Camino">
+              <PropertyRef Name="respuestaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Estudiante_Curso">
+          <End Role="Curso" Type="Self.Curso" Multiplicity="0..1" />
+          <End Role="Estudiante" Type="Self.Estudiante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Curso">
+              <PropertyRef Name="cursoId" />
+            </Principal>
+            <Dependent Role="Estudiante">
+              <PropertyRef Name="cursoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Estudiante_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="Estudiante" Type="Self.Estudiante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="usuarioId" />
+            </Principal>
+            <Dependent Role="Estudiante">
+              <PropertyRef Name="usuarioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Respuesta_Estudiante_Respuesta">
+          <End Role="Respuesta" Type="Self.Respuesta" Multiplicity="0..1" />
+          <End Role="Respuesta_Estudiante" Type="Self.Respuesta_Estudiante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Respuesta">
+              <PropertyRef Name="respuestaId" />
+            </Principal>
+            <Dependent Role="Respuesta_Estudiante">
+              <PropertyRef Name="respuestaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Respuesta_Estudiante_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="Respuesta_Estudiante" Type="Self.Respuesta_Estudiante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="usuarioId" />
+            </Principal>
+            <Dependent Role="Respuesta_Estudiante">
+              <PropertyRef Name="estudianteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usuario_Institucion">
+          <End Role="Institucion" Type="Self.Institucion" Multiplicity="0..1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Institucion">
+              <PropertyRef Name="institucionId" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="institucionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usuario_Rol">
+          <End Role="Rol" Type="Self.Rol" Multiplicity="0..1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="rolId" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="rolId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DrogadiccionModelStoreContainer">
+          <EntitySet Name="Actividad" EntityType="Self.Actividad" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Acudiente" EntityType="Self.Acudiente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Camino" EntityType="Self.Camino" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Curso" EntityType="Self.Curso" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Estudiante" EntityType="Self.Estudiante" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Fundacion" EntityType="Self.Fundacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Institucion" EntityType="Self.Institucion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pregunta" EntityType="Self.Pregunta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Psicologo" EntityType="Self.Psicologo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Respuesta" EntityType="Self.Respuesta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Respuesta_Estudiante" EntityType="Self.Respuesta_Estudiante" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rol" EntityType="Self.Rol" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Actividad_Fundacion" Association="Self.FK_Actividad_Fundacion">
+            <End Role="Fundacion" EntitySet="Fundacion" />
+            <End Role="Actividad" EntitySet="Actividad" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Acudiente_Usuario" Association="Self.FK_Acudiente_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Acudiente" EntitySet="Acudiente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Camino_Pregunta" Association="Self.FK_Camino_Pregunta">
+            <End Role="Pregunta" EntitySet="Pregunta" />
+            <End Role="Camino" EntitySet="Camino" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Camino_Respuesta" Association="Self.FK_Camino_Respuesta">
+            <End Role="Respuesta" EntitySet="Respuesta" />
+            <End Role="Camino" EntitySet="Camino" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Estudiante_Curso" Association="Self.FK_Estudiante_Curso">
+            <End Role="Curso" EntitySet="Curso" />
+            <End Role="Estudiante" EntitySet="Estudiante" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Estudiante_Usuario" Association="Self.FK_Estudiante_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Estudiante" EntitySet="Estudiante" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Respuesta_Estudiante_Respuesta" Association="Self.FK_Respuesta_Estudiante_Respuesta">
+            <End Role="Respuesta" EntitySet="Respuesta" />
+            <End Role="Respuesta_Estudiante" EntitySet="Respuesta_Estudiante" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Respuesta_Estudiante_Usuario" Association="Self.FK_Respuesta_Estudiante_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Respuesta_Estudiante" EntitySet="Respuesta_Estudiante" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usuario_Institucion" Association="Self.FK_Usuario_Institucion">
+            <End Role="Institucion" EntitySet="Institucion" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usuario_Rol" Association="Self.FK_Usuario_Rol">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DrogadiccionModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Actividad">
+          <Key>
+            <PropertyRef Name="actividadId" />
+          </Key>
+          <Property Name="actividadId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="fechaInicial" Type="DateTime" Precision="3" />
+          <Property Name="fechafinal" Type="DateTime" Precision="3" />
+          <Property Name="descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="fundacionId" Type="Int32" />
+          <NavigationProperty Name="Fundacion" Relationship="Self.FK_Actividad_Fundacion" FromRole="Actividad" ToRole="Fundacion" />
+        </EntityType>
+        <EntityType Name="Acudiente">
+          <Key>
+            <PropertyRef Name="acudienteId" />
+          </Key>
+          <Property Name="acudienteId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="usuarioId" Type="Int32" />
+          <Property Name="direccionTrabajo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="empresa" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK_Acudiente_Usuario" FromRole="Acudiente" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Camino">
+          <Key>
+            <PropertyRef Name="camino1" />
+          </Key>
+          <Property Name="camino1" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="respuestaId" Type="Int32" />
+          <Property Name="salidaId" Type="Int32" />
+          <NavigationProperty Name="Pregunta" Relationship="Self.FK_Camino_Pregunta" FromRole="Camino" ToRole="Pregunta" />
+          <NavigationProperty Name="Respuesta" Relationship="Self.FK_Camino_Respuesta" FromRole="Camino" ToRole="Respuesta" />
+        </EntityType>
+        <EntityType Name="Curso">
+          <Key>
+            <PropertyRef Name="cursoId" />
+          </Key>
+          <Property Name="cursoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descripcion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Estudiante" Relationship="Self.FK_Estudiante_Curso" FromRole="Curso" ToRole="Estudiante" />
+        </EntityType>
+        <EntityType Name="Estudiante">
+          <Key>
+            <PropertyRef Name="estudianteId" />
+          </Key>
+          <Property Name="estudianteId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="usuarioId" Type="Int32" />
+          <Property Name="cursoId" Type="Int32" />
+          <NavigationProperty Name="Curso" Relationship="Self.FK_Estudiante_Curso" FromRole="Estudiante" ToRole="Curso" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK_Estudiante_Usuario" FromRole="Estudiante" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Fundacion">
+          <Key>
+            <PropertyRef Name="fundacionId" />
+          </Key>
+          <Property Name="fundacionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="usuarioId" Type="Int32" />
+          <Property Name="identificacion" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="direccion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="telefono" Type="Int32" />
+          <NavigationProperty Name="Actividad" Relationship="Self.FK_Actividad_Fundacion" FromRole="Fundacion" ToRole="Actividad" />
+        </EntityType>
+        <EntityType Name="Institucion">
+          <Key>
+            <PropertyRef Name="institucionId" />
+          </Key>
+          <Property Name="institucionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="identificacion" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="telefono" Type="Int32" />
+          <Property Name="direccion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK_Usuario_Institucion" FromRole="Institucion" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Pregunta">
+          <Key>
+            <PropertyRef Name="preguntaId" />
+          </Key>
+          <Property Name="preguntaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Camino" Relationship="Self.FK_Camino_Pregunta" FromRole="Pregunta" ToRole="Camino" />
+        </EntityType>
+        <EntityType Name="Psicologo">
+          <Key>
+            <PropertyRef Name="psicologoId" />
+          </Key>
+          <Property Name="psicologoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="usuarioId" Type="Int32" />
+          <Property Name="especialidad" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Respuesta">
+          <Key>
+            <PropertyRef Name="respuestaId" />
+          </Key>
+          <Property Name="respuestaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="preguntaId" Type="Int32" />
+          <NavigationProperty Name="Camino" Relationship="Self.FK_Camino_Respuesta" FromRole="Respuesta" ToRole="Camino" />
+          <NavigationProperty Name="Respuesta_Estudiante" Relationship="Self.FK_Respuesta_Estudiante_Respuesta" FromRole="Respuesta" ToRole="Respuesta_Estudiante" />
+        </EntityType>
+        <EntityType Name="Respuesta_Estudiante">
+          <Key>
+            <PropertyRef Name="resEstId" />
+          </Key>
+          <Property Name="resEstId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="estudianteId" Type="Int32" />
+          <Property Name="fecha" Type="DateTime" Precision="3" />
+          <Property Name="respuestaId" Type="Int32" />
+          <NavigationProperty Name="Respuesta" Relationship="Self.FK_Respuesta_Estudiante_Respuesta" FromRole="Respuesta_Estudiante" ToRole="Respuesta" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK_Respuesta_Estudiante_Usuario" FromRole="Respuesta_Estudiante" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Rol">
+          <Key>
+            <PropertyRef Name="rolId" />
+          </Key>
+          <Property Name="rolId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK_Usuario_Rol" FromRole="Rol" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="usuarioId" />
+          </Key>
+          <Property Name="usuarioId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="identificacion" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="tipoDocumento" Type="String" MaxLength="3" FixedLength="true" Unicode="true" />
+          <Property Name="nombre" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="fechaNacimiento" Type="DateTime" Precision="0" />
+          <Property Name="telefono" Type="Int32" />
+          <Property Name="celular" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="genero" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="direccion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="contrasena" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="institucionId" Type="Int32" />
+          <Property Name="estado" Type="Boolean" />
+          <Property Name="rolId" Type="Int32" />
+          <NavigationProperty Name="Acudiente" Relationship="Self.FK_Acudiente_Usuario" FromRole="Usuario" ToRole="Acudiente" />
+          <NavigationProperty Name="Estudiante" Relationship="Self.FK_Estudiante_Usuario" FromRole="Usuario" ToRole="Estudiante" />
+          <NavigationProperty Name="Institucion" Relationship="Self.FK_Usuario_Institucion" FromRole="Usuario" ToRole="Institucion" />
+          <NavigationProperty Name="Respuesta_Estudiante" Relationship="Self.FK_Respuesta_Estudiante_Usuario" FromRole="Usuario" ToRole="Respuesta_Estudiante" />
+          <NavigationProperty Name="Rol" Relationship="Self.FK_Usuario_Rol" FromRole="Usuario" ToRole="Rol" />
+        </EntityType>
+        <Association Name="FK_Actividad_Fundacion">
+          <End Role="Fundacion" Type="Self.Fundacion" Multiplicity="0..1" />
+          <End Role="Actividad" Type="Self.Actividad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fundacion">
+              <PropertyRef Name="fundacionId" />
+            </Principal>
+            <Dependent Role="Actividad">
+              <PropertyRef Name="fundacionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Acudiente_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="Acudiente" Type="Self.Acudiente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="usuarioId" />
+            </Principal>
+            <Dependent Role="Acudiente">
+              <PropertyRef Name="usuarioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Camino_Pregunta">
+          <End Role="Pregunta" Type="Self.Pregunta" Multiplicity="0..1" />
+          <End Role="Camino" Type="Self.Camino" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pregunta">
+              <PropertyRef Name="preguntaId" />
+            </Principal>
+            <Dependent Role="Camino">
+              <PropertyRef Name="salidaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Camino_Respuesta">
+          <End Role="Respuesta" Type="Self.Respuesta" Multiplicity="0..1" />
+          <End Role="Camino" Type="Self.Camino" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Respuesta">
+              <PropertyRef Name="respuestaId" />
+            </Principal>
+            <Dependent Role="Camino">
+              <PropertyRef Name="respuestaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Estudiante_Curso">
+          <End Role="Curso" Type="Self.Curso" Multiplicity="0..1" />
+          <End Role="Estudiante" Type="Self.Estudiante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Curso">
+              <PropertyRef Name="cursoId" />
+            </Principal>
+            <Dependent Role="Estudiante">
+              <PropertyRef Name="cursoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Estudiante_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="Estudiante" Type="Self.Estudiante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="usuarioId" />
+            </Principal>
+            <Dependent Role="Estudiante">
+              <PropertyRef Name="usuarioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usuario_Institucion">
+          <End Role="Institucion" Type="Self.Institucion" Multiplicity="0..1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Institucion">
+              <PropertyRef Name="institucionId" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="institucionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Respuesta_Estudiante_Respuesta">
+          <End Role="Respuesta" Type="Self.Respuesta" Multiplicity="0..1" />
+          <End Role="Respuesta_Estudiante" Type="Self.Respuesta_Estudiante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Respuesta">
+              <PropertyRef Name="respuestaId" />
+            </Principal>
+            <Dependent Role="Respuesta_Estudiante">
+              <PropertyRef Name="respuestaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Respuesta_Estudiante_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="Respuesta_Estudiante" Type="Self.Respuesta_Estudiante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="usuarioId" />
+            </Principal>
+            <Dependent Role="Respuesta_Estudiante">
+              <PropertyRef Name="estudianteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usuario_Rol">
+          <End Role="Rol" Type="Self.Rol" Multiplicity="0..1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="rolId" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="rolId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DrogadiccionEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Actividad" EntityType="Self.Actividad" />
+          <EntitySet Name="Acudiente" EntityType="Self.Acudiente" />
+          <EntitySet Name="Camino" EntityType="Self.Camino" />
+          <EntitySet Name="Curso" EntityType="Self.Curso" />
+          <EntitySet Name="Estudiante" EntityType="Self.Estudiante" />
+          <EntitySet Name="Fundacion" EntityType="Self.Fundacion" />
+          <EntitySet Name="Institucion" EntityType="Self.Institucion" />
+          <EntitySet Name="Pregunta" EntityType="Self.Pregunta" />
+          <EntitySet Name="Psicologo" EntityType="Self.Psicologo" />
+          <EntitySet Name="Respuesta" EntityType="Self.Respuesta" />
+          <EntitySet Name="Respuesta_Estudiante" EntityType="Self.Respuesta_Estudiante" />
+          <EntitySet Name="Rol" EntityType="Self.Rol" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" />
+          <AssociationSet Name="FK_Actividad_Fundacion" Association="Self.FK_Actividad_Fundacion">
+            <End Role="Fundacion" EntitySet="Fundacion" />
+            <End Role="Actividad" EntitySet="Actividad" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Acudiente_Usuario" Association="Self.FK_Acudiente_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Acudiente" EntitySet="Acudiente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Camino_Pregunta" Association="Self.FK_Camino_Pregunta">
+            <End Role="Pregunta" EntitySet="Pregunta" />
+            <End Role="Camino" EntitySet="Camino" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Camino_Respuesta" Association="Self.FK_Camino_Respuesta">
+            <End Role="Respuesta" EntitySet="Respuesta" />
+            <End Role="Camino" EntitySet="Camino" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Estudiante_Curso" Association="Self.FK_Estudiante_Curso">
+            <End Role="Curso" EntitySet="Curso" />
+            <End Role="Estudiante" EntitySet="Estudiante" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Estudiante_Usuario" Association="Self.FK_Estudiante_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Estudiante" EntitySet="Estudiante" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usuario_Institucion" Association="Self.FK_Usuario_Institucion">
+            <End Role="Institucion" EntitySet="Institucion" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Respuesta_Estudiante_Respuesta" Association="Self.FK_Respuesta_Estudiante_Respuesta">
+            <End Role="Respuesta" EntitySet="Respuesta" />
+            <End Role="Respuesta_Estudiante" EntitySet="Respuesta_Estudiante" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Respuesta_Estudiante_Usuario" Association="Self.FK_Respuesta_Estudiante_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Respuesta_Estudiante" EntitySet="Respuesta_Estudiante" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usuario_Rol" Association="Self.FK_Usuario_Rol">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DrogadiccionModelStoreContainer" CdmEntityContainer="DrogadiccionEntities">
+          <EntitySetMapping Name="Actividad">
+            <EntityTypeMapping TypeName="DrogadiccionModel.Actividad">
+              <MappingFragment StoreEntitySet="Actividad">
+                <ScalarProperty Name="actividadId" ColumnName="actividadId" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="fechaInicial" ColumnName="fechaInicial" />
+                <ScalarProperty Name="fechafinal" ColumnName="fechafinal" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="fundacionId" ColumnName="fundacionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Acudiente">
+            <EntityTypeMapping TypeName="DrogadiccionModel.Acudiente">
+              <MappingFragment StoreEntitySet="Acudiente">
+                <ScalarProperty Name="acudienteId" ColumnName="acudienteId" />
+                <ScalarProperty Name="usuarioId" ColumnName="usuarioId" />
+                <ScalarProperty Name="direccionTrabajo" ColumnName="direccionTrabajo" />
+                <ScalarProperty Name="empresa" ColumnName="empresa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Camino">
+            <EntityTypeMapping TypeName="DrogadiccionModel.Camino">
+              <MappingFragment StoreEntitySet="Camino">
+                <ScalarProperty Name="camino1" ColumnName="camino" />
+                <ScalarProperty Name="respuestaId" ColumnName="respuestaId" />
+                <ScalarProperty Name="salidaId" ColumnName="salidaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Curso">
+            <EntityTypeMapping TypeName="DrogadiccionModel.Curso">
+              <MappingFragment StoreEntitySet="Curso">
+                <ScalarProperty Name="cursoId" ColumnName="cursoId" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Estudiante">
+            <EntityTypeMapping TypeName="DrogadiccionModel.Estudiante">
+              <MappingFragment StoreEntitySet="Estudiante">
+                <ScalarProperty Name="estudianteId" ColumnName="estudianteId" />
+                <ScalarProperty Name="usuarioId" ColumnName="usuarioId" />
+                <ScalarProperty Name="cursoId" ColumnName="cursoId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Fundacion">
+            <EntityTypeMapping TypeName="DrogadiccionModel.Fundacion">
+              <MappingFragment StoreEntitySet="Fundacion">
+                <ScalarProperty Name="fundacionId" ColumnName="fundacionId" />
+                <ScalarProperty Name="usuarioId" ColumnName="usuarioId" />
+                <ScalarProperty Name="identificacion" ColumnName="identificacion" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Institucion">
+            <EntityTypeMapping TypeName="DrogadiccionModel.Institucion">
+              <MappingFragment StoreEntitySet="Institucion">
+                <ScalarProperty Name="institucionId" ColumnName="institucionId" />
+                <ScalarProperty Name="identificacion" ColumnName="identificacion" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pregunta">
+            <EntityTypeMapping TypeName="DrogadiccionModel.Pregunta">
+              <MappingFragment StoreEntitySet="Pregunta">
+                <ScalarProperty Name="preguntaId" ColumnName="preguntaId" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Psicologo">
+            <EntityTypeMapping TypeName="DrogadiccionModel.Psicologo">
+              <MappingFragment StoreEntitySet="Psicologo">
+                <ScalarProperty Name="psicologoId" ColumnName="psicologoId" />
+                <ScalarProperty Name="usuarioId" ColumnName="usuarioId" />
+                <ScalarProperty Name="especialidad" ColumnName="especialidad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Respuesta">
+            <EntityTypeMapping TypeName="DrogadiccionModel.Respuesta">
+              <MappingFragment StoreEntitySet="Respuesta">
+                <ScalarProperty Name="respuestaId" ColumnName="respuestaId" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="preguntaId" ColumnName="preguntaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Respuesta_Estudiante">
+            <EntityTypeMapping TypeName="DrogadiccionModel.Respuesta_Estudiante">
+              <MappingFragment StoreEntitySet="Respuesta_Estudiante">
+                <ScalarProperty Name="resEstId" ColumnName="resEstId" />
+                <ScalarProperty Name="estudianteId" ColumnName="estudianteId" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="respuestaId" ColumnName="respuestaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rol">
+            <EntityTypeMapping TypeName="DrogadiccionModel.Rol">
+              <MappingFragment StoreEntitySet="Rol">
+                <ScalarProperty Name="rolId" ColumnName="rolId" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuario">
+            <EntityTypeMapping TypeName="DrogadiccionModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="usuarioId" ColumnName="usuarioId" />
+                <ScalarProperty Name="identificacion" ColumnName="identificacion" />
+                <ScalarProperty Name="tipoDocumento" ColumnName="tipoDocumento" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="fechaNacimiento" ColumnName="fechaNacimiento" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="celular" ColumnName="celular" />
+                <ScalarProperty Name="genero" ColumnName="genero" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="contrasena" ColumnName="contrasena" />
+                <ScalarProperty Name="institucionId" ColumnName="institucionId" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="rolId" ColumnName="rolId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
