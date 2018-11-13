@@ -72,18 +72,31 @@ namespace WebApiColegios.Controllers
         }
 
         // POST: api/Usuarios
-        [ResponseType(typeof(Usuario))]
-        public async Task<IHttpActionResult> PostUsuario(Usuario usuario)
+        [ResponseType(typeof(bool))]
+        //[AcceptVerbs("GET", "POST")]
+        //[System.Web.Http.HttpPost]
+        public bool PostUsuario(Usuario usuario)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
+                bool respuesta = false;
+                bool existeUsuario = db.Usuario.Any(x => x.email == usuario.email);
+                if (!existeUsuario)
+                {
+                    db.Usuario.Add(usuario);
+                    db.SaveChangesAsync();
+                    respuesta = true;
+                }
+                //Si inserto el registro retorna true de lo contrario false 
+                return respuesta;
+            }
+            catch (Exception)
+            {
+                return false;
+                throw;
             }
 
-            db.Usuario.Add(usuario);
-            await db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = usuario.usuarioId }, usuario);
         }
 
         // DELETE: api/Usuarios/5
