@@ -256,6 +256,7 @@
     <Compile Include="Models\Usuario.cs">
       <DependentUpon>ColegiosModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\UsuarioUnic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

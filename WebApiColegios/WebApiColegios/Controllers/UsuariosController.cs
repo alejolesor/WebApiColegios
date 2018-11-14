@@ -25,15 +25,15 @@ namespace WebApiColegios.Controllers
 
         // GET: api/Usuarios/5
         [ResponseType(typeof(Usuario))]
-        public async Task<IHttpActionResult> GetUsuario(int id)
+        public async Task<UsuarioUnic> GetUsuario(string email)
         {
-            Usuario usuario = await db.Usuario.FindAsync(id);
-            if (usuario == null)
-            {
-                return NotFound();
-            }
+            Usuario usuario =  db.Usuario.Where(x => x.email == email).FirstOrDefault();
 
-            return Ok(usuario);
+            UsuarioUnic User = new UsuarioUnic();
+            User.Id = usuario.usuarioId;
+            User.Nombre = usuario.nombre;
+            User.Rol = usuario.rolId;
+            return User;
         }
 
         // PUT: api/Usuarios/5
@@ -95,8 +95,6 @@ namespace WebApiColegios.Controllers
                 return false;
                 throw;
             }
-
-
         }
 
         // DELETE: api/Usuarios/5

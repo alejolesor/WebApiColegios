@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -17,9 +18,14 @@ namespace WebApiColegios.Controllers
         private DrogadiccionEntities db = new DrogadiccionEntities();
 
         // GET: api/Preguntas
+        [AcceptVerbs("GET", "POST")]
+        [System.Web.Http.HttpGet]
         public IEnumerable<Pregunta> GetPregunta()
         {
-            return db.Pregunta;
+            List<Pregunta> pregunta = new List<Pregunta>();
+            pregunta = db.Pregunta.ToList();
+       
+            return pregunta;
         }
 
         // GET: api/Preguntas/5
