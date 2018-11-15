@@ -126,6 +126,22 @@
           <Property Name="institucionId" Type="int" />
           <Property Name="estado" Type="bit" />
           <Property Name="rolId" Type="int" />
+          <Property Name="Foto" Type="varchar" MaxLength="120" />
+          <Property Name="AcudientiId" Type="int" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'Drogadiccion.dbo.Usuarios' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="30" />
+          <Property Name="Usuario" Type="varchar" MaxLength="50" />
+          <Property Name="Contrseña" Type="varchar" MaxLength="100" />
+          <Property Name="Rol" Type="varchar" MaxLength="20" />
+          <Property Name="foto" Type="varchar" MaxLength="100" />
+          <Property Name="Acudiente" Type="varchar" MaxLength="30" />
         </EntityType>
         <Association Name="FK_Actividad_Fundacion">
           <End Role="Fundacion" Type="Self.Fundacion" Multiplicity="0..1" />
@@ -261,6 +277,9 @@
           <EntitySet Name="Respuesta_Estudiante" EntityType="Self.Respuesta_Estudiante" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Rol" EntityType="Self.Rol" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" store:Type="Tables" Schema="dbo">
+
+          </EntitySet>
           <AssociationSet Name="FK_Actividad_Fundacion" Association="Self.FK_Actividad_Fundacion">
             <End Role="Fundacion" EntitySet="Fundacion" />
             <End Role="Actividad" EntitySet="Actividad" />
@@ -447,6 +466,8 @@
           <NavigationProperty Name="Institucion" Relationship="Self.FK_Usuario_Institucion" FromRole="Usuario" ToRole="Institucion" />
           <NavigationProperty Name="Respuesta_Estudiante" Relationship="Self.FK_Respuesta_Estudiante_Usuario" FromRole="Usuario" ToRole="Respuesta_Estudiante" />
           <NavigationProperty Name="Rol" Relationship="Self.FK_Usuario_Rol" FromRole="Usuario" ToRole="Rol" />
+          <Property Name="Foto" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="AcudientiId" Type="Int32" />
         </EntityType>
         <Association Name="FK_Actividad_Fundacion">
           <End Role="Fundacion" Type="Self.Fundacion" Multiplicity="0..1" />
@@ -622,7 +643,20 @@
             <End Role="Rol" EntitySet="Rol" />
             <End Role="Usuario" EntitySet="Usuario" />
           </AssociationSet>
+          <EntitySet Name="Usuarios" EntityType="DrogadiccionModel.Usuarios" />
         </EntityContainer>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Usuario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Contrseña" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Rol" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="foto" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Acudiente" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -747,6 +781,8 @@
           <EntitySetMapping Name="Usuario">
             <EntityTypeMapping TypeName="DrogadiccionModel.Usuario">
               <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="AcudientiId" ColumnName="AcudientiId" />
+                <ScalarProperty Name="Foto" ColumnName="Foto" />
                 <ScalarProperty Name="usuarioId" ColumnName="usuarioId" />
                 <ScalarProperty Name="identificacion" ColumnName="identificacion" />
                 <ScalarProperty Name="tipoDocumento" ColumnName="tipoDocumento" />
@@ -761,6 +797,19 @@
                 <ScalarProperty Name="institucionId" ColumnName="institucionId" />
                 <ScalarProperty Name="estado" ColumnName="estado" />
                 <ScalarProperty Name="rolId" ColumnName="rolId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="DrogadiccionModel.Usuarios">
+              <MappingFragment StoreEntitySet="Usuarios">
+                <ScalarProperty Name="Acudiente" ColumnName="Acudiente" />
+                <ScalarProperty Name="foto" ColumnName="foto" />
+                <ScalarProperty Name="Rol" ColumnName="Rol" />
+                <ScalarProperty Name="Contrseña" ColumnName="Contrseña" />
+                <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

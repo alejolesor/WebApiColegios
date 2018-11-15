@@ -36,6 +36,8 @@ namespace WebApiColegios.Models
         public Nullable<int> institucionId { get; set; }
         public Nullable<bool> estado { get; set; }
         public Nullable<int> rolId { get; set; }
+        public string Foto { get; set; }
+        public Nullable<int> AcudientiId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Acudiente> Acudiente { get; set; }

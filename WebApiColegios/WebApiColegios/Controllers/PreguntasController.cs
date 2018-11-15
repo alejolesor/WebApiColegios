@@ -28,6 +28,13 @@ namespace WebApiColegios.Controllers
             return pregunta;
         }
 
+        public IEnumerable<Respuesta> GetRespuesta()
+        {
+            List<Respuesta> pregunta = new List<Respuesta>();
+            pregunta = db.Respuesta.ToList();
+            return pregunta;
+        }
+
         // GET: api/Preguntas/5
         [ResponseType(typeof(Pregunta))]
         public IHttpActionResult GetPregunta(int id)

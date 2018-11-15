@@ -22,13 +22,13 @@ namespace WebApiColegios.Controllers
                 using (DrogadiccionEntities context = new DrogadiccionEntities())
                 {
                     //context.Configuration.ProxyCreationEnabled = false;
-                    var data = context.Usuario.Where(x => x.email == user.Name).Select(s => new { s.contrasena, s.email }).ToList();
+                    var data = context.Usuarios.Where(x => x.Usuario == user.Name).Select(s => new { s.Contrseña, s.Usuario }).ToList();
 
                     if (data.Count > 0)
                     {
                         foreach (var item in data)
                         {
-                            if (user.password == item.contrasena)
+                            if (user.password == item.Contrseña)
                             {
                                 respuesta = true;
                             }

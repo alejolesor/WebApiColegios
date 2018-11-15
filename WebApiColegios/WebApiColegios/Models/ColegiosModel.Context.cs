@@ -38,5 +38,6 @@ namespace WebApiColegios.Models
         public virtual DbSet<Respuesta_Estudiante> Respuesta_Estudiante { get; set; }
         public virtual DbSet<Rol> Rol { get; set; }
         public virtual DbSet<Usuario> Usuario { get; set; }
+        public virtual DbSet<Usuarios> Usuarios { get; set; }
     }
 }

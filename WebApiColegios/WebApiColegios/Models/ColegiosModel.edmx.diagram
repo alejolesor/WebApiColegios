@@ -28,6 +28,7 @@
         <AssociationConnector Association="DrogadiccionModel.FK_Respuesta_Estudiante_Respuesta" ManuallyRouted="false" />
         <AssociationConnector Association="DrogadiccionModel.FK_Respuesta_Estudiante_Usuario" ManuallyRouted="false" />
         <AssociationConnector Association="DrogadiccionModel.FK_Usuario_Rol" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="DrogadiccionModel.Usuarios" Width="1.5" PointX="7.375" PointY="7.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -18,34 +18,37 @@ namespace WebApiColegios.Controllers
         private DrogadiccionEntities db = new DrogadiccionEntities();
 
         // GET: api/Usuarios
-        public IQueryable<Usuario> GetUsuario()
+        public IEnumerable<Usuarios> GetUsuario()
         {
-            return db.Usuario;
+            return db.Usuarios;
+
+        }
+        public IEnumerable<Usuarios> GetAcudiente()
+        {
+            List<Usuarios> acudientes = new List<Usuarios>();
+            acudientes  = db.Usuarios.Where(x => x.Rol == "Acudiente").ToList();
+            return acudientes;
         }
 
         // GET: api/Usuarios/5
         [ResponseType(typeof(Usuario))]
-        public async Task<UsuarioUnic> GetUsuario(string email)
+        public async Task<Usuarios> GetUsuario(string usuario)
         {
-            Usuario usuario =  db.Usuario.Where(x => x.email == email).FirstOrDefault();
+            Usuarios usuariodata =  db.Usuarios.Where(x => x.Usuario.Contains(usuario)).FirstOrDefault();
 
-            UsuarioUnic User = new UsuarioUnic();
-            User.Id = usuario.usuarioId;
-            User.Nombre = usuario.nombre;
-            User.Rol = usuario.rolId;
-            return User;
+            return usuariodata;
         }
 
         // PUT: api/Usuarios/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutUsuario(int id, Usuario usuario)
+        public IHttpActionResult PutUsuario(int id, Usuarios usuario)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != usuario.usuarioId)
+            if (id != usuario.Id)
             {
                 return BadRequest();
             }
@@ -54,7 +57,7 @@ namespace WebApiColegios.Controllers
 
             try
             {
-                await db.SaveChangesAsync();
+                 db.SaveChanges();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -75,22 +78,22 @@ namespace WebApiColegios.Controllers
         [ResponseType(typeof(bool))]
         //[AcceptVerbs("GET", "POST")]
         //[System.Web.Http.HttpPost]
-        public bool PostUsuario(Usuario usuario)
+        public bool PostUsuario(Usuarios usuario)
         {
             try
             {
                 bool respuesta = false;
-                bool existeUsuario = db.Usuario.Any(x => x.email == usuario.email);
+                bool existeUsuario = db.Usuarios.Any(x => x.Usuario == usuario.Usuario);
                 if (!existeUsuario)
                 {
-                    db.Usuario.Add(usuario);
-                    db.SaveChangesAsync();
+                    db.Usuarios.Add(usuario);
+                    db.SaveChanges();
                     respuesta = true;
                 }
                 //Si inserto el registro retorna true de lo contrario false 
                 return respuesta;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return false;
                 throw;
@@ -101,13 +104,13 @@ namespace WebApiColegios.Controllers
         [ResponseType(typeof(Usuario))]
         public async Task<IHttpActionResult> DeleteUsuario(int id)
         {
-            Usuario usuario = await db.Usuario.FindAsync(id);
+            Usuarios usuario = await db.Usuarios.FindAsync(id);
             if (usuario == null)
             {
                 return NotFound();
             }
 
-            db.Usuario.Remove(usuario);
+            db.Usuarios.Remove(usuario);
             await db.SaveChangesAsync();
 
             return Ok(usuario);

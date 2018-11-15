@@ -196,6 +196,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PreguntasController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Controllers\UsersgeController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -253,7 +254,11 @@
       <DependentUpon>ColegiosModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\User.cs" />
+    <Compile Include="Models\userfinal.cs" />
     <Compile Include="Models\Usuario.cs">
+      <DependentUpon>ColegiosModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Usuarios.cs">
       <DependentUpon>ColegiosModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UsuarioUnic.cs" />
